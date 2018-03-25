@@ -1,0 +1,13 @@
+.card{
+	height:200px;
+	width: 15%;
+	margin-left:4%;
+	/*margin-right: 4%;*/
+	float:left;
+}
+
+.img-container{
+	width: 90%;
+	height: 90%;
+	padding: 5%;
+}
