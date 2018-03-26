@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import ReactDOM from 'react-dom';
+import Modal from 'react-responsive-modal';
 import MatchCard from "./components/MatchCard";
 import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
@@ -12,38 +14,45 @@ const shuffled = array => array.map((a) => [Math.random(),a]).sort((a,b) => a[0]
 class App extends Component {
   state = {
     cards,
-    score
+    score,
+    open: false,
+    message: ""
   };
 
 
+onCloseModal = () => {
+    this.setState({ open: false });
+  };
 
 chooseCard = id => {
 
 
   const checkClick=this.state.cards.filter(card =>card.id===id)
     if(checkClick[0].clicked===true){
-      alert("That was a double click! Let's try again.");
       const reset=this.state.cards.map(card => {
         card.clicked=false;
-        this.state.score=0;
     });
-    this.setState({ reset });
+    this.setState({ reset,
+                    open:true,
+                    score:0,
+                    message:"Drat! You already clicked that one. Let's play again."});
    }else if (this.state.score===24){
-  alert("Wow!!! A perfect game. Let's play again.");
-  const reset=this.state.cards.map(card => {
+  const win=this.state.cards.map(card => {
         card.clicked=false;
-        this.state.score=0;
     });
-    this.setState({ reset });
+    this.setState({ win,
+                    score:0,
+                    open:true,
+                    message:"Wowzers! A perfect game."});
   } else {
 
     const playcards= this.state.cards.map(card => {
       if(card.id === id ){
         card.clicked=true;
-        this.state.score ++;
+        this.state.score++;
       }
     });
-    this.setState({ playcards });
+    this.setState({ playcards});
   }
 
   };
@@ -51,7 +60,7 @@ chooseCard = id => {
 
 
   render() {
- 
+    const { open } = this.state;
     return (
       <Wrapper>
         <Title>One Each: Springtime</Title>
@@ -65,7 +74,13 @@ chooseCard = id => {
             image={cardx.image}
             clicked={cardx.clicked}
           />
-         ))}
+          ))}
+        <div>
+        <Modal open={open} onClose={this.onCloseModal} little>
+          <h2>{this.state.message}</h2>
+        </Modal>
+      </div>
+         
       </Wrapper>
     );
   }
