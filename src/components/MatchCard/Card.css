@@ -2,8 +2,11 @@
 	height:200px;
 	width: 15%;
 	margin-left:4%;
+	margin-bottom: 3%;
 	/*margin-right: 4%;*/
 	float:left;
+	background-color: #52489C;
+	padding-bottom: 1%;
 }
 
 .img-container{

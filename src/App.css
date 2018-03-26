@@ -1,1 +1,21 @@
+body{
+	background-color:#EBEBEB;
+	font-family: 'Great Vibes', cursive;
+	color: #F45B69;
+}
+.wrapper{
+	text-align: center;
+	background-color: #52489C;
+	
+}
 
+.tagline{
+	font-size: 36px;
+}
+
+.scoreKeeper{
+	padding-bottom: 36px;
+	font-size: 24px;
+	margin-bottom: 4%;
+	
+}

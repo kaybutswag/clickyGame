@@ -6,6 +6,7 @@ import cards from "./cards.json";
 import "./App.css";
 const score=0;
 
+
 const shuffled = array => array.map((a) => [Math.random(),a]).sort((a,b) => a[0]-b[0]).map((a) => a[1]);
 
 class App extends Component {
@@ -14,12 +15,27 @@ class App extends Component {
     score
   };
 
+
+
 chooseCard = id => {
+
 
   const checkClick=this.state.cards.filter(card =>card.id===id)
     if(checkClick[0].clicked===true){
-      console.log("you lose");
-    }else{
+      alert("That was a double click! Let's try again.");
+      const reset=this.state.cards.map(card => {
+        card.clicked=false;
+        this.state.score=0;
+    });
+    this.setState({ reset });
+   }else if (this.state.score===24){
+  alert("Wow!!! A perfect game. Let's play again.");
+  const reset=this.state.cards.map(card => {
+        card.clicked=false;
+        this.state.score=0;
+    });
+    this.setState({ reset });
+  } else {
 
     const playcards= this.state.cards.map(card => {
       if(card.id === id ){
@@ -30,19 +46,17 @@ chooseCard = id => {
     this.setState({ playcards });
   }
 
-
-
-console.log(this.state.cards);
-
   };
 
 
 
   render() {
+ 
     return (
       <Wrapper>
-        <Title>Spring Match</Title>
-        <div className="scoreKeeper">{this.state.score}</div>
+        <Title>One Each: Springtime</Title>
+        <h2 className="tagline">Try to click each icon once and only once</h2>
+        <div className="scoreKeeper">Your Score: {this.state.score}</div>
         {shuffled(this.state.cards).map(cardx => (
           <MatchCard
             chooseCard={this.chooseCard}
@@ -51,7 +65,7 @@ console.log(this.state.cards);
             image={cardx.image}
             clicked={cardx.clicked}
           />
-        ))}
+         ))}
       </Wrapper>
     );
   }
